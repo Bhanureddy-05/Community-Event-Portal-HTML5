@@ -1,3 +1,20 @@
+## Features
+- Event Gallery
+- Registration Desk
+- Responsive Design
+- Interactive Navigation
+
+## Technologies Used
+- HTML5
+- CSS3
+- JavaScript
+
+## Live Demo
+https://bhanureddy-05.github.io/Community-Event-Portal-HTML5/
+
+## Author
+Bhanu Prakash Reddy
+
 # 🌌 Celestial Community Event Portal (Module 1 - HTML5 Heavenly Edition)
 
 Welcome to my daily upskilling progress tracker! This repository showcases the completed work for **Day 1** of my web development journey under the Digital Nurture 5.0 Program. 
