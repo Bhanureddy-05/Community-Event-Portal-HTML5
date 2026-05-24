@@ -10,8 +10,7 @@
 - JavaScript
 
 ## Live Demo
-https://bhanureddy-05.github.io/Community-Event-Portal-HTML5/
-
+https://bhanureddy-05.github.io/Smart-Community-Event-Management-System/
 ## Author
 Bhanu Prakash Reddy
 
