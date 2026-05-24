@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Celestial Community Event Portal</title>
+
+    <style>
+        :root {
+            --heaven-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --card-glass: rgba(255, 255, 255, 0.07);
+            --neon-cyan: #0ea5e9;
+            --neon-purple: #d946ef;
+            --neon-gold: #f59e0b;
+            --text-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background: var(--heaven-gradient);
+            color: var(--text-light);
+            background-attachment: fixed;
+        }
+
+        /* Task 1 & 2: Navigation Header Glass Layout [cite: 605, 610] */
+        header {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 8px rgba(255,255,255,0.1);
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        main {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Beautiful Floating Heaven Cards Layout */
+        section {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 35px;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        section:hover {
+            transform: translateY(-5px);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 25px 50px rgba(14, 165, 233, 0.15);
+        }
+
+        h1, h2, h3, h4 {
+            background: linear-gradient(to right, #ffffff, #93c5fd, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        h1 { font-size: 36px; text-align: center; margin-bottom: 25px; }
+
+        /* Task 3: ID Selector Blue Ethereal Banner Theme [cite: 617] */
+        #welcomeBanner {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.25) 0%, rgba(124, 58, 237, 0.25) 100%);
+            padding: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Task 3: Global Reusable Class Highlight Aesthetic [cite: 620] */
+        .highlight {
+            background: linear-gradient(90deg, #b45309, #d97706);
+            color: #fff;
+            padding: 3px 8px;
+            font-weight: 600;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
+        }
+
+        /* Task 4: Image Gallery Layout & Table Matrix Styles [cite: 623] */
+        .event-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px;
+            margin-top: 20px;
+        }
+        .event-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .event-table caption {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Premium Glowing Borders on Images [cite: 623] */
+        .gallery-thumb {
+            width: 100%;
+            max-width: 230px;
+            height: 140px;
+            object-fit: cover;
+            border: 3px solid rgba(14, 165, 233, 0.6);
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Task 6: Double Click Scaling Transformation [cite: 638] */
+        .zoomable-img {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
+            cursor: pointer;
+        }
+        .zoomed {
+            transform: scale(1.35);
+            z-index: 50;
+            position: relative;
+            border-color: var(--neon-purple);
+            box-shadow: 0 15px 35px rgba(217, 70, 239, 0.4);
+        }
+
+        /* Task 5: Event Registration Elegant Form UI Inputs [cite: 628, 631] */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: var(--neon-cyan);
+            background: rgba(15, 23, 42, 0.8);
+            outline: none;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+        }
+        .form-control::placeholder {
+            color: #64748b;
+        }
+
+        /* Neon Action Control Buttons */
+        .btn-submit {
+            background: linear-gradient(90deg, #0284c7 0%, #3b82f6 100%);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+        }
+        .btn-clear {
+            background: linear-gradient(90deg, #475569 0%, #64748b 100%);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        .btn-clear:hover {
+            background: #334155;
+        }
+
+        /* Success & Information Alert Display Panels [cite: 630] */
+        .output-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(22, 101, 52, 0.25);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            border-radius: 10px;
+            color: #4ade80;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);
+            text-align: center;
+        }
+
+        .error-text {
+            color: #f87171;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Task 7: Ethereal Dark Video Theater Wrapper [cite: 644] */
+        .video-box {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            margin-top: 25px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+        video {
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .coordinates-box {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            background-color: #020617;
+            color: #38bdf8;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.1);
+        }
+
+        footer {
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #64748b;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body onload="checkAndRetrieveUserPreferences()" onbeforeunload="return handleFormInterceptionAlert(event)">
+
+    <header>
+        <nav>
+            <a href="#home">🌌 Portal Home</a> 
+            <a href="#events">🎆 Event Gallery</a> 
+            <a href="#registration">🔮 Registration Desk</a> 
+            <a href="help.html" target="_blank">❔ Help Documentation</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="home">
+            <h1>Ethereal City Council Portal</h1>
+            
+            <div id="welcomeBanner">
+                <p style="font-size: 18px; margin-top: 0;">Greetings Resident, welcome to your celestial portal dashboard space!</p>
+                <p>💫 <span style="color: #ef4444; font-weight: bold; text-shadow: 0 0 10px rgba(239,68,68,0.3);">Special Offer:</span> Register during this celestial cycle to claim a premium pass voucher ticket!</p>
+                <p>Global Notice: <span class="highlight">The Downtown main avenue street food trucks carnival scheduling grid closes tonight.</span></p>
+            </div>
+        </section>
+
+        <section id="events">
+            <h2>Community Cultural Celebrations</h2>
+            
+            <table class="event-table">
+                <caption>Visual Highlights From Our Neighborhood Gatherings</caption>
+                <tr>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=500" alt="Food Trucks Festival gathering" title="Annual Food Truck Carnival" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=500" alt="Tree planting drive event" title="Eco City Tree Plantation Drive" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=500" alt="Concert music night session" title="Weekend Neon Musical Concert Night" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500" alt="Townhall resident meeting assembly" title="Resident Townhall Assembly Interactive Meet" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" alt="Kids sports championship tracks" title="Annual Kids Sports Day Event Challenge" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                    <td>
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" alt="Charity art auction presentation" title="Community Charity Art Exhibition Event" class="gallery-thumb zoomable-img" ondblclick="toggleImageZoom(this)">
+                    </td>
+                </tr>
+            </table>
+
+            <div class="video-box">
+                <h4>🎥 Official City Council Trailer Reel:</h4>
+                <video id="promoVideo" width="100%" controls oncanplay="displayMediaReadyNotification()">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    ❌ Current device browser engine architecture does not support HTML5 media player components.
+                </video>
+                <div id="mediaStatusLabel" style="font-size: 13px; color: #38bdf8; margin-top: 10px; font-weight: 500;">Buffering celestial streams...</div>
+            </div>
+        </section>
+
+        <section id="registration">
+            <h2>Resident Space Registration Desk</h2>
+            
+            <form id="registrationForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+                <div class="form-group">
+                    <label for="userName">Full Legal Name:</label>
+                    <input type="text" id="userName" class="form-control" placeholder="Enter your full name" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Secure Email Address:</label>
+                    <input type="email" id="userEmail" class="form-control" placeholder="resident@heavenly.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPhone">Hotline Phone Contact (10 Digits):</label>
+                    <input type="tel" id="userPhone" class="form-control" placeholder="9876543210" onblur="validatePhoneNumberField()">
+                    <div id="phoneError" class="error-text">❌ Invalid Entry! Requirements check dictates a structural 10 digital numeric string sequence.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDate">Preferred Allocation Date:</label>
+                    <input type="date" id="eventDate" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventType">Select Target Event (Auto-Saves Preference Index):</label>
+                    <select id="eventType" class="form-control" required onchange="handleDropdownSelectionChangeEvent()">
+                        <option value="">-- Click to pull up events pricing sheets --</option>
+                        <option value="food_festival">Food Trucks Festival Carnival (Entry Pass: Free)</option>
+                        <option value="music_concert">Weekend Neon Musical Concert Night (Pass Fee: $25.00)</option>
+                        <option value="art_exhibition">Community Charity Art Exhibition (Donation Pass: $10.00)</option>
+                    </select>
+                    <div id="feeDisplayResultArea" style="font-weight: bold; color: #38bdf8; margin-top: 8px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="userMessage">Additional Specialized Requirements / Suggestions:</label>
+                    <textarea id="userMessage" class="form-control" rows="3" placeholder="Enter seating dependencies or access logs guidelines..." onkeyup="countTypingCharacters()"></textarea>
+                    <div id="characterCounterBox" style="text-align: right; font-size: 12px; color: #94a3b8; margin-top: 6px;">Characters typed: 0</div>
+                </div>
+
+                <button type="submit" class="btn-submit">Secure Registration Tokens</button>
+                
+                <button type="button" class="btn-clear" onclick="clearAllStoredBrowserCachePreferences()">Purge Preferences Dictionary Caches</button>
+
+                <output id="formConfirmationOutputBox" class="output-box" for="userName eventType"></output>
+            </form>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.15); margin-top: 35px; padding-top: 25px; text-align: center;">
+                <h4>🛰️ Geolocation Proximity Telemetry</h4>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Authorize positioning vectors to calculate your relative cluster map distance points indices.</p>
+                <button type="button" class="btn-submit" style="background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%); width: auto; padding: 12px 24px; box-shadow: 0 4px 15px rgba(245,158,11,0.3);" onclick="fetchDeviceCoordinatesStream()">Find Nearby Events</button>
+                <div id="coordinatesOutputBoxResult" class="coordinates-box"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Celestial City Council Management Infrastructure Dashboard System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ========================================================
+        // TASK 5 & TASK 10: CONFIRMATION ENGINES & DEVTOOLS BREAKPOINTS [cite: 630, 662]
+        // ========================================================
+        function handleFormSubmit() {
+            var inputNameValue = document.getElementById('userName').value;
+            var selectorNode = document.getElementById('eventType');
+            var targetedChoiceTextName = selectorNode.options[selectorNode.selectedIndex].text;
+            
+            // Task 10: Trace debugging log strings injected into the background Console grid [cite: 667]
+            console.log("Form verification handshake initiated. Logged input records identity context: ", inputNameValue);
+            
+            // Task 10: Core native debugger literal invocation lines to test manual step breakpoints tool [cite: 668]
+            debugger; 
+
+            var targetConfirmationOutputArea = document.getElementById('formConfirmationOutputBox');
+            targetConfirmationOutputArea.innerHTML = "✨ Registration Successful! Transaction tokens compiled for resident identifier [" + inputNameValue + "] matching allocations profile: " + targetedChoiceTextName + ". Safe travels!";
+            targetConfirmationOutputArea.style.display = "block";
+        }
+
+        // ========================================================
+        // TASK 6: ACTIVE INTERACTION STATE CONTROLLERS HOOKS [cite: 632]
+        // ========================================================
+        function validatePhoneNumberField() {
+            var phoneStringValue = document.getElementById('userPhone').value;
+            var alertDivNode = document.getElementById('phoneError');
+            var standardRegexCheckPattern = /^\d{10}$/; // Verifies length of entry string matches 10 digits cleanly
+
+            if (!standardRegexCheckPattern.test(phoneStringValue) && phoneStringValue !== "") {
+                alertDivNode.style.display = "block";
+            } else {
+                alertDivNode.style.display = "none";
+            }
+        }
+
+        function countTypingCharacters() {
+            var inputLengthValue = document.getElementById('userMessage').value.length;
+            document.getElementById('characterCounterBox').innerHTML = "Characters typed: " + inputLengthValue;
+        }
+
+        function toggleImageZoom(imageElementReference) {
+            // Task 6: Handles dblclick to expand element scaling layout states indices [cite: 638]
+            imageElementReference.classList.toggle('zoomed');
+            console.log("Ondblclick layout transformation fired cleanly.");
+        }
+
+        // Combined tracking methods executed when drop items status index updates options configuration
+        function handleDropdownSelectionChangeEvent() {
+            updateEventPassFeeDisplayNotice();
+            saveUserPreferenceToLocalStorageEngine();
+        }
+
+        function updateEventPassFeeDisplayNotice() {
+            var selectorNode = document.getElementById('eventType');
+            var currentSelectedValue = selectorNode.value;
+            var viewAreaNoticeDiv = document.getElementById('feeDisplayResultArea');
+
+            // Task 6 dropdown mapping dynamic fee strings injection [cite: 636]
+            if (currentSelectedValue === "food_festival") {
+                viewAreaNoticeDiv.innerHTML = "💰 Fee Notice: Open Community Access Entry. Rate value is set to $0.00.";
+            } else if (currentSelectedValue === "music_concert") {
+                viewAreaNoticeDiv.innerHTML = "💰 Fee Notice: Premium Tier Ticket. Hardware verification node expects exactly $25.00 pass processing.";
+            } else if (currentSelectedValue === "art_exhibition") {
+                viewAreaNoticeDiv.innerHTML = "💰 Fee Notice: Fine Arts Core Fundraiser. Minimum required donation token: $10.00.";
+            } else {
+                viewAreaNoticeDiv.innerHTML = "";
+            }
+        }
+
+        // ========================================================
+        // TASK 7: VIDEO MEDIA EVENTS AND INTERCEPTIONS LOGIC METRICS [cite: 640]
+        // ========================================================
+        function displayMediaReadyNotification() {
+            var textLabelNode = document.getElementById('mediaStatusLabel');
+            // Task 7 media event canplay status tracker message update [cite: 645]
+            textLabelNode.innerHTML = "🌌 Streaming Channels Initialized: Video invite ready to play!";
+            console.log("HTML5 native oncanplay signaling completed.");
+        }
+
+        function handleFormInterceptionAlert(event) {
+            var inputFieldTraceValue = document.getElementById('userName').value;
+            
+            // Task 7: Warn users before unload if form data entries are currently active in view [cite: 646]
+            if (inputFieldTraceValue !== "") {
+                var browserAlertModalPromptWarningMessage = "⚠️ Warning: Form configurations inputs are unsubmitted! Moving away will clear your cache records updates.";
+                (event || window.event).returnValue = browserAlertModalPromptWarningMessage;
+                return browserAlertModalPromptWarningMessage;
+            }
+        }
+
+        // ========================================================
+        // TASK 8: LOCALSTORAGE / SESSIONSTORAGE KEY BINDINGS [cite: 647]
+        // ========================================================
+        function saveUserPreferenceToLocalStorageEngine() {
+            var capturedChoiceStringIndex = document.getElementById('eventType').value;
+            
+            if (capturedChoiceStringIndex !== "") {
+                // Task 8 save selected index into localStorage dictionary [cite: 651]
+                localStorage.setItem('heavenly_portal_saved_preference_index', capturedChoiceStringIndex);
+                // Simultaneously mapping dynamic short-term transient verification timestamps parameters
+                sessionStorage.setItem('active_window_session_initialization_epoch', Date.now());
+                console.log("Preferences tracked inside dictionary dictionary blocks: " + capturedChoiceStringIndex);
+            }
+        }
+
+        function checkAndRetrieveUserPreferences() {
+            // Task 8 lookup dictionary records during initial window loading sequence [cite: 652]
+            var recoveredPreferenceTokenIndex = localStorage.getItem('heavenly_portal_saved_preference_index');
+            
+            if (recoveredPreferenceTokenIndex) {
+                document.getElementById('eventType').value = recoveredPreferenceTokenIndex;
+                updateEventPassFeeDisplayNotice(); // Re-sync pricing strings
+                console.log("Onload retrieval pipeline recovered cache records row index: " + recoveredPreferenceTokenIndex);
+            }
+        }
+
+        function clearAllStoredBrowserCachePreferences() {
+            // Task 8: Clear both localStorage and sessionStorage indexes [cite: 653]
+            localStorage.removeItem('heavenly_portal_saved_preference_index');
+            sessionStorage.clear(); 
+            
+            document.getElementById('eventType').value = "";
+            document.getElementById('feeDisplayResultArea').innerHTML = "";
+            alert("🧹 Purge Handshake Complete! Storage dictionaries preferences records deleted successfully from native space caches.");
+        }
+
+        // ========================================================
+        // TASK 9: PRECISION GEOLOCATION HARDWARE STREAM APIS [cite: 654]
+        // ========================================================
+        function fetchDeviceCoordinatesStream() {
+            var debugBoxNode = document.getElementById('coordinatesOutputBoxResult');
+            debugBoxNode.style.display = "block";
+            debugBoxNode.innerHTML = "🛰️ Connecting to network telemetry modules to extract spatial location grids...";
+
+            if (!navigator.geolocation) {
+                debugBoxNode.innerHTML = "❌ Localization Fault: Geolocation API framework is fully missing on this legacy machine.";
+                return;
+            }
+
+            // Task 9 high accuracy options parameter matrices setup configurations [cite: 661]
+            var localizedAccuracySensorConfigurationsMatrix = {
+                enableHighAccuracy: true,  // Demands maximum satellite/sensor logging precision tracking
+                timeout: 7000,             // Fixed query interval boundary cutoff point at exactly 7 seconds [cite: 660]
+                maximumAge: 0              // Denies history caches cache reading, demands freshly streamed points
+            };
+
+            // Task 9 trigger lookup methods pipeline [cite: 659]
+            navigator.geolocation.getCurrentPosition(
+                handleLocationDiscoverySuccessCallback,
+                handleLocationDiscoveryFailureErrorCallback,
+                localizedAccuracySensorConfigurationsMatrix
+            );
+        }
+
+        function handleLocationDiscoverySuccessCallback(locationStreamPayloadPacket) {
+            var presentationNodeElement = document.getElementById('coordinatesOutputBoxResult');
+            var dynamicLatitudeDecimalAxis = locationStreamPayloadPacket.coords.latitude;
+            var dynamicLongitudeDecimalAxis = locationStreamPayloadPacket.coords.longitude;
+
+            presentationNodeElement.innerHTML = "🌐 Telemetry Locked Successfully!<br><br>" +
+                                                "📍 Latitude Target Vector: " + dynamicLatitudeDecimalAxis.toFixed(5) + " Axis<br>" +
+                                                "📐 Longitude Target Vector: " + dynamicLongitudeDecimalAxis.toFixed(5) + " Axis Mapping Node";
+        }
+
+        function handleLocationDiscoveryFailureErrorCallback(errorPayloadTrackerInfo) {
+            var presentationNodeElement = document.getElementById('coordinatesOutputBoxResult');
+            
+            // Task 9 error matrices switch loop catch conditions blocks [cite: 660]
+            switch(errorPayloadTrackerInfo.code) {
+                case errorPayloadTrackerInfo.PERMISSION_DENIED:
+                    presentationNodeElement.innerHTML = "❌ Telemetry Refused: Resident denied satellite location prompt routing tokens.";
+                    break;
+                case errorPayloadTrackerInfo.TIMEOUT:
+                    presentationNodeElement.innerHTML = "❌ Telemetry Interrupted: Hardware search timed out before verification links synchronized.";
+                    break;
+                case errorPayloadTrackerInfo.POSITION_UNAVAILABLE:
+                    presentationNodeElement.innerHTML = "❌ Telemetry Lost: Network tower coordinates are unavailable within current spatial limits.";
+                    break;
+                default:
+                    presentationNodeElement.innerHTML = "❌ Unspecified localization error encountered within execution layers.";
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
